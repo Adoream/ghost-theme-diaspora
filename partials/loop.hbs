@@ -1,0 +1,11 @@
+<!-- This is the post loop - each post will be output using this markup -->
+<div class="post">
+    <a data-id="{{id}}" href="{{url}}" title="{{title}}">
+        <img width="680" height="440" src="{{#if feature_image}}{{img_url feature_image}}{{else}}https://static.misaka.xin/Background/18.jpg{{/if}}" class="cover">
+    </a>
+    <div class="else">
+        <p>{{date published_at timeago="true"}}</p>
+        <h3><a data-id="{{id}}" class="posttitle" href="{{url}}">{{title}}</a></h3>
+        <p>{{excerpt words="10"}}...</p>
+    </div>
+</div>

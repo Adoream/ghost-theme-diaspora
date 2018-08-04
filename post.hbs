@@ -1,0 +1,56 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{#post}}
+<div id="single" data-id="{{id}}">
+    <div id="top">
+        <div class="bar"></div>
+        <a class="image-icon" href="javascript:history.back()"></a>
+        <div title="播放/暂停" data-id="{{id}}" class="icon-play"></div>
+		<h3 class="subtitle">{{title}}</h3>
+        <div class="social">
+            <div class="like-icon">
+                <a href="javascript:;" class="likeThis" id="like-{{id}}"><span class="icon-like"></span><span class="count">0</span></a>
+            </div>
+            <div>
+                <div class="share">
+                    <a title="获取二维码" class="icon-wechat" href="javascript:;"></a>
+                </div>
+                <div id="qr"></div>
+            </div>
+        </div>
+        <div class="scrollbar"></div>
+    </div>
+    
+    <div class="section" style="left: 0;">
+        <div class="images"></div>
+        <div class="article">
+            <div>
+        		<h1 class="title">{{title}}</h1>
+        
+                <div class="stuff">
+                    <span>{{date format="D MMMM YYYY"}} </span>
+                    <span>阅读 0</span>
+                    <span>字数 <span id="wordCount">0</span></span>
+                    <span>
+                        喜欢 
+                        <a href="javascript:;" class="likeThis" id="like-{{id}}">
+                            <span class="icon-like"></span>
+                            <span class="count">0</span>
+                        </a>
+                    </span>
+                </div>
+        
+                <div class="content">
+                    {{content}}
+                </div>
+        
+                <div class="comment-wrap" data-title="{{title}}" data-url="{{url}}" data-identifier="ghost-{{comment_id}}">
+                    <div id="pager"><a href="#" class="loadDisqus">加载 Disqus</a></div>
+                    <div id="disqus_thread"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/post}}

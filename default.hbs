@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="{{lang}}" class="loading">
+<head>
+
+    {{!-- Document Settings --}}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+
+    {{!-- Base Meta --}}
+    <title>{{meta_title}}</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {{!-- Styles'n'Scripts --}}
+    <link rel="stylesheet" type="text/css" href="{{asset "css/Diaspora.css"}}" />
+    
+    <style>
+        .image-logo{background-image:url({{asset "images/logo.png"}})}body.mu .image-logo{background-image:url({{asset "images/logo_black.png"}})}.image-icon{background-image:url({{asset "images/logo_min.png"}})}
+    </style>
+    
+    <script>
+        var audio;
+        
+        window['Page'] = {
+            SITEURL: '{{@blog.url}}',
+            MAXPAGES: parseInt ('{{#if pagination.pages}}{{pagination.pages}}{{else}}0{{/if}}')
+        }
+    </script>
+        
+    {{!-- This tag outputs SEO meta+structured data and other important settings --}}
+    {{ghost_head}}
+
+</head>
+<body class="{{body_class}} loading">
+
+    <div id="loader"></div>
+        
+    <div class="nav">
+        <ul id="menu-menu" class="menu">
+            {{navigation}}
+        </ul>
+        <p>&copy; {{date format="YYYY"}} <a href="{{@blog.url}}">{{@blog.title}}</a>. Powered by <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a></p>
+    </div>
+    
+    {{!-- All the main content gets inserted here, index.hbs, post.hbs, etc --}}
+    {{{body}}}
+    
+    {{!-- jQuery + Fitvids, which makes all video embeds responsive --}}
+    <script src="{{asset "js/jquery.min.js"}}"></script>
+    <script src="{{asset "js/plugin.js"}}"></script>
+    <script src="{{asset "js/Diaspora.js"}}"></script>
+        
+    {{!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag --}}
+    {{ghost_foot}}
+    
+    {{!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. --}}
+    {{{block "scripts"}}}
+</body>
+</html>

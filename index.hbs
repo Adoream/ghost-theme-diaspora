@@ -1,0 +1,59 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+
+{{!-- The big featured header, it uses blog cover image as a BG if available --}}
+<div id="container">
+    <div id="screen">
+        <div id="mark">
+            <div class="layer" data-depth="0.4">
+                <img id="cover" crossorigin="anonymous" src="{{#if @blog.cover_image}}{{@blog.cover_image}}{{else}}{{asset "images/wallhaven-279676.jpg"}}{{/if}}" width="2500" height="1637"/>
+            </div>
+        </div>
+
+        <div id="vibrant">
+            <svg viewBox="0 0 2880 1620" height="100%" preserveAspectRatio="xMaxYMax slice">
+                <polygon opacity="0.7" points="2000,1620 0,1620 0,0 600,0 "/>
+            </svg>
+            <div></div>
+        </div>
+
+        <div id="header">
+            <div>
+                <a class="image-logo" href="/"></a>
+                <div class="icon-menu switchmenu"></div>
+            </div>
+        </div>
+        {{#posts.[0]}}
+        <div id="post0">
+            <p>{{date published_at timeago="true"}}</p>
+            <h2><a data-id="{{id}}" class="posttitle" href="{{url}}">{{title}}</a></h2>
+            <p>{{excerpt words="10"}}</p>
+        </div>
+        {{/posts.[0]}}
+        {{!--  
+        {{^is "paged"}}
+            {{#get "posts" filter="featured:true" limit="1" as |featured|}}
+                {{#foreach featured}}
+                    <div id="post0">
+                        <p>{{date published_at timeago="true"}}</p>
+                        <h2><a data-id="{{id}}" class="posttitle" href="{{url}}">{{title}}</a></h2>
+                        <p>{{excerpt words="10"}}</p>
+                    </div>
+                {{/foreach}}
+            {{/get}}
+        {{/is}}
+        --}}
+    </div>
+    
+    <div id="primary">
+        {{!-- The tag below includes the markup for each post - partials/loop.hbs --}}
+        {{#foreach posts from="2"}}
+            {{> "loop"}}
+        {{/foreach}}
+    </div>
+    
+    {{pagination}}
+</div>
+
+<div id="preview" class="trans"></div>

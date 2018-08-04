@@ -1,0 +1,25 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{#post}}
+<div id="single" class="page">
+    <div id="top">
+        <a class="image-icon" href="javascript:history.back()"></a>
+    </div>
+
+    <div class="section" style="left: 0;">
+	    <div class="article">
+            <div>
+                <div class="content">
+        		    {{content}}
+                </div>
+                
+                <div class="comment-wrap" data-title="{{title}}" data-url="{{url}}" data-identifier="ghost-{{comment_id}}">
+                    <div id="pager"><a href="#" class="loadDisqus">加载 Disqus</a></div>
+                    <div id="disqus_thread"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/post}}

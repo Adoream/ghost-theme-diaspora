@@ -1,0 +1,22 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{#post}}
+<div id="single" class="page">
+    <div id="top">
+        <a class="image-icon" href="javascript:history.back()"></a>
+    </div>
+
+    <div class="section" style="left: 0;">
+        <div class="images"></div>
+        
+        <div class="article">
+            <div>
+                <div class="content">
+                    {{content}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/post}}
