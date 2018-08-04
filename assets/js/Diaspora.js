@@ -5,7 +5,7 @@
  */
 
 var Home = location.href,
-    Pages = 4,
+    Pages = Page.MAXPAGES,
     xhr,
     xhrUrl = '',
     scrollFunction;
@@ -248,7 +248,7 @@ var Diaspora = {
         
         if (!disqus_load) {
             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//zuimoe.disqus.com/embed.js';dsq.setAttribute('data-timestamp', +new Date());
+            dsq.src = '//' + Page.DISQUS_SHORT_NAME + '.disqus.com/embed.js';dsq.setAttribute('data-timestamp', +new Date());
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             
             $('.loadDisqus').remove();
