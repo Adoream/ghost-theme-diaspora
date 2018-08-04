@@ -74,7 +74,6 @@ audio {
     width: 0;
     height: 0;
 }
-
 #screen {
     position: relative;
 }
@@ -1294,3 +1293,47 @@ ol.children li {
     content: "\e60e";
 }
 
+pre {
+    max-height: 400px;
+    overflow: auto;
+}
+
+code {
+    padding: 0 4px;
+    font-size: 90%;
+    background: rgba(241, 240, 234, 1);
+    color: #999;
+    margin: 4px;
+    border-radius: 2px;
+    display: inline-block;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: Consolas,monospace;
+}
+
+pre, pre code {
+    display: block;
+    margin: 0 0 10px;
+    padding: 9.5px;
+    background-color: rgba(245, 245, 245, 1);
+    color: #999;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    font-family: Consolas,monospace;
+    line-height: 1.42857143;
+    word-break: break-all;
+    border-radius: 3px;
+}
+
+pre code {
+    padding: 0;
+    margin: 0;
+    background: none;
+}
+
+.stuff span span {
+    margin-right: 0px!important;
+}
