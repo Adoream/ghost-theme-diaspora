@@ -139,8 +139,8 @@ var Diaspora = {
 
             setTimeout(function() {
                 if (!id) id = $('.icon-play').data('id');
+                Diaspora.setContent ($('#single').data('id'));
                 Diaspora.loadPlayer (id);
-                Diaspora.setContent (id);
                 // Diaspora.player(id)
 
                 // get download link
@@ -275,21 +275,55 @@ var Diaspora = {
     setContent: function (id) {
         $elem = $('.content');
         
-        if ($('links').length > 0) {
-            $('br').remove();
-            $elem.parent().append ('<ul class="friend"></ul>');
+        if ($elem.length) {
+            $('#wordNum').html($('.content').text().length);
             
-            $('links').each(function (i, value) {
-                var url = $(this).data('url'),
-                name = $(this).html();
-                if (!url || !name) {
-                    return;
+            if ($('.likeThis').length) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://api.aim.moe/CS/Read',
+                    data: {
+                        url: Page.SITEURL,
+                        identifier: id
+                    },
+                    dataType: 'json'
+                });
+            
+                if (localStorage.getItem('isLike-' + id) == 1) {
+                    if ($('.likeThis').parents().is('.like-icon')) $('.likeThis').addClass('active');
                 }
-    
-                var dom = '<li><a href="' + url + '" target="_blank">' + name + '</a></li>';
-                $('.friend').append (dom);
-                $(this).remove();
-            });
+                
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://api.aim.moe/CS',
+                    data: {
+                        url: Page.SITEURL,
+                        identifier: id
+                    },
+                    dataType: 'json',
+                    success: function(ret) {
+                        if (ret.code !== -9999) {
+                            $('.count').html(ret.info.like ? ret.info.like : 0);
+                            $('#readNum').html(ret.info.read ? ret.info.read : 0);
+                        }
+                    }
+                })   
+            }
+                
+            if ($('links').length > 0) {
+                $('br').remove();
+                $elem.parent().append ('<ul class="friend"></ul>');
+                $('links').each(function (i, value) {
+                    var url = $(this).data('url'),
+                    name = $(this).html();
+                    if (!url || !name) {
+                        return;
+                    }
+                    var dom = '<li><a href="' + url + '" target="_blank">' + name + '</a></li>';
+                    $('.friend').append (dom);
+                    $(this).remove();
+                });
+            }   
         }
     }
 }
@@ -405,8 +439,8 @@ $(function() {
         })
 
         //Diaspora.player($('.icon-play').data('id'))
+        Diaspora.setContent ($('#single').data('id'))
         Diaspora.loadPlayer ($('.icon-play').data('id'))
-        Diaspora.setContent ($('.icon-play').data('id'))
 
         $('.icon-icon, .image-icon').attr('href', '/')
 
@@ -593,37 +627,36 @@ $(function() {
             // post like
             case (tag.indexOf('icon-like') != -1):
                 var t = $(e.target).parent(),
-                    classes = t.attr('class');
+                    classes = t.attr('class'),
+                    id = t.attr('id').split('like-');
 
                 if (t.prev().hasClass('icon-view')) return;
-
+                
                 classes = classes.split(' ');
-                if(classes[1] == 'active') return;
-
-                t.addClass('active')
-
-                var id = t.attr('id').split('like-');
+                if (classes[1] == 'active') return;
                 
-                var text = $('#like-'+ id[1]).html(),
-                    patt= /(\d)+/,
-                    num = patt.exec(text);
-                
-                num[0] ++;
-                
-                /*$.ajax({
+                $.ajax({
                     type: 'POST',
-                    url: 'https://api.aim.moe/CS/like',
+                    url: 'https://api.aim.moe/CS/Like',
                     data: {
                         url: Page.SITEURL,
-                        identifier: id[1],
-                        num: num[0]
+                        identifier: id[1]
                     },
+                    dataType: 'json',
                     success: function(ret) {
                         if (ret.code !== -9999) {
-                            $('#like-'+ id[1]).html('<span class="icon-like"></span><span class="count">' + num[0] + '</span>')
+                            var text = $('#like-'+ id[1]).html(),
+                                patt= /(\d)+/,
+                                num = patt.exec(text);
+                            
+                            localStorage.setItem ('isLike-' + id[1], 1);
+                            t.addClass('active');
+                            
+                            num[0] ++;
+                            $('.count').html(num[0]);
                         }
                     }
-                })*/
+                })
             break;
             
             // load Disqus

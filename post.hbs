@@ -10,7 +10,8 @@ into the {body} of the default.hbs template --}}
 		<h3 class="subtitle">{{title}}</h3>
         <div class="social">
             <div class="like-icon">
-                <a href="javascript:;" class="likeThis" id="like-{{id}}"><span class="icon-like"></span><span class="count">0</span></a>
+                <a href="javascript:;" class="likeThis" id="like-{{id}}"><span class="icon-like"></span><span class="count likeNum">0</span>
+                </a>
             </div>
             <div>
                 <div class="share">
@@ -18,6 +19,11 @@ into the {body} of the default.hbs template --}}
                 </div>
                 <div id="qr"></div>
             </div>
+            {{#if author.twitter}}
+                <div class="twitter-icon">
+                    <a href="{{twitter_url author.twitter}}">{{twitter}}</a>
+                </div>
+            {{/if}}
         </div>
         <div class="scrollbar"></div>
     </div>
@@ -30,13 +36,13 @@ into the {body} of the default.hbs template --}}
         
                 <div class="stuff">
                     <span>{{date format="D MMMM YYYY"}} </span>
-                    <span>阅读 0</span>
-                    <span>字数 <span id="wordCount">0</span></span>
+                    <span>阅读 <span id="readNum">0</span></span>
+                    <span>字数 <span id="wordNum">0</span></span>
                     <span>
                         喜欢 
                         <a href="javascript:;" class="likeThis" id="like-{{id}}">
                             <span class="icon-like"></span>
-                            <span class="count">0</span>
+                            <span class="count likeNum">0</span>
                         </a>
                     </span>
                 </div>
